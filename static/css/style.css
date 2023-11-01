@@ -1,0 +1,39 @@
+body{
+   background-image: url("{{ url_for('static', filename='images/example.jpg') }}");
+   background-size: cover;
+   background-position: center;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 100vh;
+   margin: 0;
+   background-color: #f0f0f0;
+   }
+.login{
+background-color: rgb(54, 43, 120) ;
+color: rgb(241, 232, 232);
+border-radius: 20px;
+height: 50px;
+width: 100px;
+cursor: pointer;
+margin-right: 100px;
+
+
+    }
+.login:hover{
+   background-color: red;
+   color: black;
+}
+.login:active{
+   background-color: red;
+   color:white;
+}
+.input-field {
+      margin: 10px 0; /* Add vertical margin to create space between fields */
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      color: black;
+      font-style: oblique;
+   }

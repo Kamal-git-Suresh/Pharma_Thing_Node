@@ -1,0 +1,29 @@
+<html lang="en">
+    <head> 
+        <style>
+            nav a {
+                color: yellow;
+                font-family: "Monaco", sans-serif   ;
+                font-size: 3em;
+                margin-left: 50px;
+                text-decoration: none;
+            }
+            .top_bit{
+                background-color: coral;
+                border-radius: 25px;
+            }
+        </style>
+        
+    </head>
+    <body>
+        <div class = "top_bit">
+            <nav>
+                <a href= "{{ url_for('main') }}"> Pharma Thing </a>
+            </nav>
+        </div>
+        <br><br>
+        <div class = "content">
+            {% block content %} {% endblock %}  
+        </div>        
+    </body>
+</html>
