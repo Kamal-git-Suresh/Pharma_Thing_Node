@@ -4,9 +4,29 @@ const http = require('http');
 const path = require('path');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
+const mysql = require('mysql')
 
 const app = express();
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'aaa',
+    database: "pharma"
+});
 
+connection.connect(error => {
+    if (error){
+        console.log("A error has been occurred "
+            + "while connecting to database.");        
+        throw error;
+    }
+});
+connection.query('select * from doctor', (err, rows, fields) => {
+    if (err) throw err
+  
+    console.log(rows)
+  })
+  
 app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.static("express"));
