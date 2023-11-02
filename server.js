@@ -1,10 +1,11 @@
 const express = require('express');
-const expressNunjucks = require('express-nunjucks').default;
 const http = require('http');
 const path = require('path');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const mysql = require('mysql')
+const session = require('express-session')
+
 
 const app = express();
 const connection = mysql.createConnection({
@@ -31,6 +32,11 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.static("express"));
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(session({
+    secret:'secret',
+    resave:true,
+    saveUninitialized:true
+}));
 
 const port = 3000;
 
@@ -47,6 +53,9 @@ app.post('/', (req, res) =>{
     res.render('homepage', {name: username });
 });
 
+app.post('/auth', (req, res) =>{
+    
+});
 
 const server = http.createServer(app);
 server.listen(port)
