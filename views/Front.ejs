@@ -1,66 +1,104 @@
 <!DOCTYPE html>
 <html>
-   <title>
-      LOGIN 
-   </title>
-  
-   
-   <style>
-      
+  <title>LOGIN</title>
 
-      body{
-       background-image: url('U0rczZ.jpg'); /* Replace 'your-image.jpg' with the path to your image */
-       background-size: cover;
-       background-position: center;
+  <style>
+    body {
+      background-image: url("U0rczZ.jpg"); /* Replace 'your-image.jpg' with the path to your image */
+      background-size: cover;
+      background-position: center;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
       background-color: #f0f0f0;
-      }
- .login{
-   background-color: rgb(54, 43, 120) ;
-   color: rgb(241, 232, 232);
-   border-radius: 20px;
-   height: 50px;
-   width: 100px;
-   cursor: pointer;
-   margin-right: 100px;
-   
-   
-       }
-   .login:hover{
+    }
+    .login {
+      background-color: rgb(54, 43, 120);
+      color: rgb(241, 232, 232);
+      border-radius: 20px;
+      height: 50px;
+      width: 100px;
+      cursor: pointer;
+      margin-right: 100px;
+    }
+    .login:hover {
       background-color: red;
       color: black;
-   }
-   .login:active{
+    }
+    .login:active {
       background-color: red;
-      color:white;
-   }
-   .input-field {
-         margin: 10px 0; /* Add vertical margin to create space between fields */
-         width: 100%;
-         padding: 10px;
-         border: 1px solid #ccc;
-         border-radius: 5px;
-         color: black;
-         font-style: oblique;
-      }
-   </style>
- 
- <body>
-   <form action="/" method="POST">
-      <div>
-         <label for="username">Username:</label>
-         <input class="input-field" type="text" placeholder="Username" name="username" required>
-      </div>
-      <div>
-         <label for="password">Password:</label>
-         <input class="input-field" type="password" placeholder="Password" name="password" required>
-      </div>
-      <button class="login" type ="submit">LOGIN</button>
-   </form>
- </body>
+      color: white;
+    }
+    .input-field {
+      margin: 10px 0; /* Add vertical margin to create space between fields */
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      color: black;
+      font-style: oblique;
+    }
+  </style>
 
+  <body>
+    <script>
+      function handleSubmit() {
+        var selectedValue = document.querySelector('input[name="role"]:checked').value;
+        if (selectedValue === 'Pharmacist') {
+            document.getElementById('loginForm').action = '/pharma_login';
+        } else if (selectedValue === 'Doctor') {
+            document.getElementById('loginForm').action = '/doctor_login';
+        } else if (selectedValue === 'Administrator') {
+            document.getElementById('loginForm').action = '/admin_login';
+        }
+    }
+
+    </script>
+    <form method="POST" id = "loginForm" onsubmit="handleSubmit()">
+      <div>
+        <input type="radio" name="role" id="doctorRadio" value="Doctor" />
+        <label for="doctorRadio">Doctor</label><br />
+
+        <input
+          type="radio"
+          name="role"
+          id="pharmacistRadio"
+          value="Pharmacist"
+        />
+        <label for="pharmacistRadio">Pharmacist</label><br />
+
+        <input
+          type="radio"
+          name="role"
+          id="administratorRadio"
+          value="Administrator"
+        />
+        <label for="administratorRadio">Administrator</label><br />
+      </div>
+      <div>
+        <label for="username">Username:</label>
+        <input
+          class="input-field"
+          type="text"
+          placeholder="Username"
+          name="username"
+          required
+        />
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <input
+          class="input-field"
+          type="password"
+          placeholder="Password"
+          name="password"
+          required
+        />
+      </div>
+      <button class="login" type="submit">LOGIN</button>
+      
+    </form>
+  </body>
 </html>

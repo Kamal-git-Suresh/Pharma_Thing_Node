@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Patient ID</title>
+    <style>
+      /* Style for the search box and button */
+      body {
+        background-image: url("U0rczZ.jpg"); /* Replace 'your-image.jpg' with the path to your image */
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+      }
+      .search-container {
+        display: flex;
+      }
+
+      .search-input {
+        padding: 10px;
+        width: 20%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      .search-button {
+        padding: 10px 20px;
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Patient ID</h2>
+    <div class="search-container">
+      <form action="/search_pat" method="post">
+        <input
+          type="text"
+          class="search-input"
+          name="pat_id"
+          placeholder="ID"
+        />
+        <button class="search-button" type="submit">Search</button>
+      </form>
+    <br>
+    </div>
+    <% if (rows != undefined) { %>
+        <div>
+            <h3><%=rows[0].pat_name%></h3>
+            <label> Id: <%= rows[0].pat_id%></label><br>
+            <label> Age: <%= rows[0].pat_age%></label><br>
+            <label> Date of Birth: <%= rows[0].pat_dob.toString().slice(0,10) %></label><br>
+            <label> Sex: <%= rows[0].pat_sex%></label><br>
+            <br><br>
+            <thead>
+                <tr>
+                   <th>Doctor Id</th>
+                   <th>Prescription Id</th>
+                   <th>Prescription Date</th>
+                   <th>Amount</th>
+                </tr><br>
+            </thead>
+            <tbody>
+                <% rows.forEach(function(row) { %>
+                    <% var date = row.presc_date.toString().slice(0, 10); %>
+                    <% console.log(date) %>
+                <tr>
+                    <td><%= row.doc_id %></td>
+                    <td><%= row.presc_id %></td>
+                    <td><%= date %></td>
+                    <td><%= row.amount %></td>
+                </tr><br>
+                <% }); %>
+            </tbody>
+         </table>
+        </div>
+    <% } %>
+  </body>
+</html>
