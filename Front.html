@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+   <title>
+      LOGIN 
+   </title>
+  
+   
+   <style>
+      
+
+      body{
+       background-image: url('U0rczZ.jpg'); /* Replace 'your-image.jpg' with the path to your image */
+       background-size: cover;
+       background-position: center;
+      display: flex;
+      justify-content: center;
+     align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+      }
+ .login{
+   background-color: rgb(54, 43, 120) ;
+   color: rgb(241, 232, 232);
+   border-radius: 20px;
+   height: 50px;
+   width: 100px;
+   cursor: pointer;
+   margin-right: 100px;
+    align-items: center;
+   
+   
+       }
+   .login:hover{
+      background-color: red;
+      color: black;
+   }
+   .login:active{
+      background-color: rgb(0, 106, 255);
+      color:white;
+   }
+   .input-field {
+         margin: 10px 0; /* Add vertical margin to create space between fields */
+         width: 100%;
+         padding: 10px;
+         border: 1px solid #ccc;
+         border-radius: 5px;
+         color: black;
+         font-style: oblique;
+      }
+      .radio {
+            display: inline-block;
+          /*  background-color: #3498db;*/
+            color: #140d48;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight:bolder;
+            margin: 5px;
+        }
+
+   </style>
+ 
+ <body>
+   <form>
+      <div class="radio">
+             <input type="radio" name="role" id="doctorRadio" value="Doctor">
+             <label for="doctorRadio">Doctor</label><br>
+             
+             <input type="radio" name="role" id="pharmacistRadio" value="Pharmacist">
+             <label for="pharmacistRadio">Pharmacist</label><br>
+             
+             <input type="radio" name="role" id="administratorRadio" value="Administrator">
+             <label for="administratorRadio">Administrator</label><br>
+      </div>
+         
+      <div>
+         <label for="username">Username:</label>
+         <input class="input-field" type="text" placeholder="Username" name="username" required>
+      </div>
+      <div>
+         <label for="password">Password:</label>
+         <input class="input-field" type="password" placeholder="Password" name="password" required>
+      </div>
+      <button class="login">LOGIN</button>
+   </form>
+ </body>
+
+</html>
