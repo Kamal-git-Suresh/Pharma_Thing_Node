@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patent Details</title>
+</head>
+<style>
+     body{
+       background-image: url('U0rczZ.jpg'); /* Replace 'your-image.jpg' with the path to your image */
+       background-size: cover;
+       background-position: center;
+      display: flex;
+      justify-content: center;
+     align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+      }
+      textarea{
+         height: 100px;
+         width: 300px;
+      }
+</style>
+
+<body>
+   
+    <form action="process_patent.php" method="post">
+      <table border="3" id="patentTable">
+        <thead>
+            <tr>
+               <th>Doctor Id</th>
+               <th>Doctor name</th>
+               <th>Prescription Id</th>
+               <th>Prescription Date</th>
+               <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% rows.forEach(function(row) { %>
+            <tr>
+                <td><%= row.doc_id %></td>
+                <td><%= row.presc_id %></td>
+                <td><%= row.presc_date %></td>
+                <td><%= row.amount %></td>
+            </tr>
+        </tbody>
+     </table>
+     <script>
+      function addRow() {
+          var table = document.getElementById("patentTable");
+          var newRow = table.insertRow(table.rows.length);
+          
+          var cell1 = newRow.insertCell(0);
+          
+          
+
+          var inputMedicine = document.createElement("input");
+          inputMedicine.type = "text";
+          cell1.appendChild(inputMedicine);
+      }
+  </script>
+ 
+
+       
+    </form>
+</body>
+</html>

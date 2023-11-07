@@ -180,22 +180,89 @@ function searchPat(id) {
 const port = 3000;
 
 app.get("/", (req, res) => {
+  //req.logout();
   res.render("Front");
   //res.sendFile(path.join(__dirname + '\\front.html'));
 });
 
-app.get("/admin", ensureAuthentication('admin'), (req, res) => {
-    res.render("admin_home", { rows: undefined });
-  });
+app.get("/admin", ensureAuthentication("admin"), (req, res) => {
+  res.render("admin_home", { rows: undefined });
+});
 
-app.get("/doctor", ensureAuthentication('doctor'), (req, res) => {
-    res.render("doctor_home", { rows: undefined });
-  });
+app.get("/doctor", ensureAuthentication("doctor"), (req, res) => {
+  res.render("doctor_home", { rows: undefined });
+});
 
-app.get("/pharma", ensureAuthentication('pharamasist'), (req, res) => {
+app.get("/pharma", ensureAuthentication("pharamasist"), (req, res) => {
   res.render("pharma_home", { rows: undefined });
 });
 
+app.post("/insert_doc", ensureAuthentication("admin"), (req, res) => {
+  var query = "insert into doctor values(?,?,?,?)";
+  var docName = req.body.doc_name;
+  var docID = req.body.doc_id;
+  var docSpec = req.body.doc_spec;
+  var docExp = req.body.doc_exp;
+  connection.query(query, [docID, docName, docSpec, docExp], (err, rows, fields) => {
+    if (err) throw err;
+    console.log(rows.length);
+  });
+  res.redirect('/admin');
+});
+
+app.post("/insert_pat", ensureAuthentication("admin"), (req, res) => {
+  var query = "insert into patient values(?,?,?,?)";
+  var patName = req.body.pat_name;
+  var patID = req.body.pat_id;
+  var patDOB = req.body.pat_dob;
+  var patSex = req.body.pat_sex;
+  connection.query(query, [patID, patName, patDOB, patSex], (err, rows, fields) => {
+    if (err) throw err;
+    console.log(rows.length);
+  });
+  res.redirect('/admin');
+});
+
+app.post("/insert_pharma", ensureAuthentication("admin"), (req, res) => {
+  var query = "insert into pharmasist values(?,?)";
+  var pharmName = req.body.pharm_name;
+  var pharmID = req.body.pharm_id;
+  connection.query(query, [pharmID, pharmName], (err, rows, fields) => {
+    if (err) throw err;
+    console.log(rows.length);
+  });
+  res.redirect('/admin');
+});
+
+app.post("/insert_admin", ensureAuthentication("admin"), (req, res) => {
+  var query = "insert into admin values(?,?)";
+  var adminUsername = req.body.admin_user_name;
+  var adminPassword = req.body.admin_password;
+  connection.query(query, [adminUsername, adminPassword], (err, rows, fields) => {
+    if (err) throw err;
+    console.log(rows.length);
+  });
+  res.redirect('/admin');
+});
+
+app.post("/prescribe", ensureAuthentication("doctor"), (req,res) => {
+    var query = 'insert into prescription values(?,?,?,?,?)'
+    var prescId = req.body.presc_id;
+    var docId = req.body.doc_id;
+    var patId = req.body.pat_id;
+    var prescDate = req.body.presc_date;
+    var amount = req.body.presc_amount;
+    connection.query(query, [prescId, docId, patId, prescDate, amount], (err, rows, fields) => {
+      if (err) throw err;
+      console.log(rows.length);
+    });
+    res.redirect('/doctor');
+});
+
+
+app.post("/login", (req, res) => {
+  res.send("tf");
+});
 app.post(
   "/pharma_login",
   passport.authenticate("pharmasist", {
