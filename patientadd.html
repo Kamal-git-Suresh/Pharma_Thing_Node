@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add New Patient</title>
+</head>
+<body>
+    <h1>Add New Patient</h1>
+    <form id="patientForm" action="process_patient.php" method="post">
+        <label for="patientName">Patient Name:</label>
+        <input type="text" id="patientName" name="patientName" required><br><br>
+
+        <label for="patientAge">Patient Age:</label>
+        <input type="number" id="patientAge" name="patientAge" required><br><br>
+
+        <!-- You can add more fields here for other patient information -->
+
+        <input type="submit" value="Add Patient">
+    </form>
+</body>
+</html>
