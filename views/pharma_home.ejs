@@ -54,27 +54,27 @@
         <div>
             <h3><%=rows[0].pat_name%></h3>
             <label> Id: <%= rows[0].pat_id%></label><br>
-            <label> Age: <%= rows[0].pat_age%></label><br>
-            <label> Date of Birth: <%= rows[0].pat_dob.toString().slice(0,10) %></label><br>
+            <label> Date of Birth: <%= rows[0].pat_date %></label><br>
             <label> Sex: <%= rows[0].pat_sex%></label><br>
             <br><br>
             <thead>
                 <tr>
                    <th>Doctor Id</th>
                    <th>Prescription Id</th>
+                   <th>Prescription Name</th>
                    <th>Prescription Date</th>
                    <th>Amount</th>
                 </tr><br>
             </thead>
             <tbody>
                 <% rows.forEach(function(row) { %>
-                    <% var date = row.presc_date.toString().slice(0, 10); %>
-                    <% console.log(date) %>
                 <tr>
                     <td><%= row.doc_id %></td>
                     <td><%= row.presc_id %></td>
-                    <td><%= date %></td>
+                    <td><%= row.presc_name %></td>
+                    <td><%= row.presc_date %></td>
                     <td><%= row.amount %></td>
+                    <td><button values = <%= row.presc_id %> ></button></td>
                 </tr><br>
                 <% }); %>
             </tbody>

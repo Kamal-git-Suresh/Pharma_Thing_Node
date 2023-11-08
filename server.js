@@ -7,6 +7,8 @@ const mysql = require("mysql");
 const session = require("express-session");
 const passport = require("passport");
 var flash = require("connect-flash");
+const { defaultMaxListeners } = require("events");
+const { domainToASCII } = require("url");
 const LocalStrategy = require("passport-local").Strategy;
 
 //const promise = require('promise')
@@ -28,7 +30,8 @@ connection.connect((error) => {
 
 app.set("view engine", "ejs");
 app.use(express.json());
-app.use(express.static("express"));
+app.use(express.static('./static'))
+//app.use(express.static("express"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(
   session({
@@ -50,12 +53,14 @@ passport.deserializeUser(function (user, done) {
 });
 
 passport.use(
-  "pharmasist",
+  'pharmasist',
   new LocalStrategy(function (username, password, done) {
     var actualUsername, actualPassword;
     authPharma(username, password).then((result) => {
       actualUsername = result[0].username;
       actualPassword = result[0].password;
+      console.log('username:' + username);
+      console.log('password:' + password);
       if (result == 0) {
         console.log("Failed");
         console.log("username: " + username);
@@ -69,7 +74,7 @@ passport.use(
 );
 
 passport.use(
-  "doctor",
+  'doctor',
   new LocalStrategy(function (username, password, done) {
     var actualUsername, actualPassword;
     authDoctor(username, password).then((result) => {
@@ -88,12 +93,10 @@ passport.use(
 );
 
 passport.use(
-  "Admin",
+  'admin',
   new LocalStrategy(function (username, password, done) {
     var actualUsername, actualPassword;
     authAdmin(username, password).then((result) => {
-      actualUsername = result[0].username;
-      actualPassword = result[0].password;
       if (result == 0) {
         console.log("Failed");
         console.log("username: " + username);
@@ -106,9 +109,48 @@ passport.use(
   })
 );
 
+class doctor{
+  constructor(docID, docName, docSpec, docExp, docAge, docEmail){
+    this.docID = docID;
+    this.docName = docName;
+    this.docSpec = docSpec;
+    this.docExp = docExp;
+    this.docAge = docAge;
+    this.docEmail = docEmail;
+  }
+}
+
+function insertDoc(docID, docName, docSpec, docPassword, docExp, docAge, docEmail){
+  var query = "insert into doctor values(?,?,?,?,?,?)";
+  var auth_query = "insert into doctor_auth values(?,?)";
+  connection.query(query, [docID, docName, docSpec, docExp, docAge, docEmail], (err, rows, fields) => {
+    if (err) throw err;
+    console.log(rows.length);
+  });
+  connection.query(auth_query, [docPassword, docID], (err, rows, fields) => {
+    if (err) throw err;
+    console.log(rows.length);
+  });
+
+}
+
+function insertPat(patID, patName, patDOB, patSex){
+  var query = "insert into patient values(?,?,?,?)";
+  connection.query(query, [patID, patName, patDOB, patSex], (err, rows, fields) => {
+    if (err) throw err;
+  });
+}
+
+function insertPharma(pharmID, pharmName){
+  var query = "insert into pharmasist values(?,?)";
+  connection.query(query, [pharmID, pharmName], (err, rows, fields) => {
+    if (err) throw err;
+  });
+}
+
 function ensureAuthentication(requiredRole) {
   return function (req, res, next) {
-    if (req.isAuthenticated() && req.user.role == "pharmasist") {
+    if (req.isAuthenticated() && req.user.role == requiredRole) {
       return next();
     } else {
       console.log("ensureAuthentication Failed");
@@ -127,6 +169,7 @@ function authPharma(username, password, auth_type) {
       if (rows.length > 0) {
         resolve(rows);
       } else {
+        console.log('no');
         resolve(0);
       }
     });
@@ -135,7 +178,7 @@ function authPharma(username, password, auth_type) {
 
 function authDoctor(username, password, auth_type) {
   var auth;
-  var query = `select * from doctor_auth where username=? and password=?`;
+  var query = `select * from doctor_auth where id=? and password=?`;
   return new Promise((resolve, reject) => {
     connection.query(query, [username, password], (err, rows, fields) => {
       if (err) throw err;
@@ -164,12 +207,13 @@ function authAdmin(username, password, auth_type) {
 }
 
 function searchPat(id) {
+  var patQuery =  "select pat_name from patient where pat_id = ?";
   return new Promise((resolve, reject) => {
-    connection.query(query, [username, password], (err, rows, fields) => {
+    connection.query(patQuery, [id], (err, rows, fields) => {
       if (err) throw err;
       console.log(rows.length);
       if (rows.length > 0) {
-        resolve(rows);
+        resolve(rows[0].pat_name);
       } else {
         resolve(0);
       }
@@ -185,52 +229,52 @@ app.get("/", (req, res) => {
   //res.sendFile(path.join(__dirname + '\\front.html'));
 });
 
-app.get("/admin", ensureAuthentication("admin"), (req, res) => {
+app.get("/admin", ensureAuthentication('admin'), (req, res) => {
   res.render("admin_home", { rows: undefined });
 });
 
-app.get("/doctor", ensureAuthentication("doctor"), (req, res) => {
+app.get("/doctor", ensureAuthentication('doctor'), (req, res) => {
   res.render("doctor_home", { rows: undefined });
 });
 
-app.get("/pharma", ensureAuthentication("pharamasist"), (req, res) => {
+app.get("/pharma", ensureAuthentication('pharmasist'), (req, res) => {
   res.render("pharma_home", { rows: undefined });
 });
 
 app.post("/insert_doc", ensureAuthentication("admin"), (req, res) => {
-  var query = "insert into doctor values(?,?,?,?)";
-  var docName = req.body.doc_name;
-  var docID = req.body.doc_id;
-  var docSpec = req.body.doc_spec;
-  var docExp = req.body.doc_exp;
-  connection.query(query, [docID, docName, docSpec, docExp], (err, rows, fields) => {
-    if (err) throw err;
-    console.log(rows.length);
-  });
-  res.redirect('/admin');
+  var docName = req.body.name;
+  console.log('name: ' + docName);
+  var docID = req.body.id;
+  console.log('ID:' + docID);
+  var docSpec = req.body.spec;
+  console.log('Spec: ' + docSpec);
+  var docExp = req.body.exp;
+  console.log('Exp: ' + docExp);
+  var docEmail = req.body.email;
+  console.log('Email: ' + docEmail);
+  var docAge = req.body.age;
+  console.log('Age: ' + docAge);
+  var docPassword = req.body.password;
+  console.log('Password: ' + docPassword);
+  insertDoc(docID, docName, docSpec, docPassword, docExp, docAge, docEmail);
+  res.redirect('admin');
 });
 
 app.post("/insert_pat", ensureAuthentication("admin"), (req, res) => {
-  var query = "insert into patient values(?,?,?,?)";
   var patName = req.body.pat_name;
   var patID = req.body.pat_id;
   var patDOB = req.body.pat_dob;
   var patSex = req.body.pat_sex;
-  connection.query(query, [patID, patName, patDOB, patSex], (err, rows, fields) => {
-    if (err) throw err;
-    console.log(rows.length);
-  });
+  insertPat();
   res.redirect('/admin');
 });
 
 app.post("/insert_pharma", ensureAuthentication("admin"), (req, res) => {
-  var query = "insert into pharmasist values(?,?)";
+  
   var pharmName = req.body.pharm_name;
   var pharmID = req.body.pharm_id;
-  connection.query(query, [pharmID, pharmName], (err, rows, fields) => {
-    if (err) throw err;
-    console.log(rows.length);
-  });
+  insertPharma(pharmID, pharmName);
+  
   res.redirect('/admin');
 });
 
@@ -263,6 +307,7 @@ app.post("/prescribe", ensureAuthentication("doctor"), (req,res) => {
 app.post("/login", (req, res) => {
   res.send("tf");
 });
+
 app.post(
   "/pharma_login",
   passport.authenticate("pharmasist", {
@@ -337,18 +382,19 @@ app.post("/search_pat", (req, res) => {
   //var rows = searchPat(pat_id);
   var pharma_query = "select pharma_name from pharmasist where pharma_id = ?";
   var presc_query =
-    "select patient.pat_id, pat_name, pat_dob, pat_sex, doc_id, presc_id, presc_date, amount from patient inner join prescription on patient.pat_id = prescription.pat_id where patient.pat_id = ?";
-
-  connection.query(pharma_query, [pat_id], (err, rows, fields) => {
+    "select p.pat_id, p.pat_name, p.pat_sex, p.pat_dob, pr.presc_id, m.presc_name, pr.presc_date, pr.prescribed, pr.amount from patient p join prescription pr on p.pat_id = pr.pat_id join meds m on pr.presc_id = m.presc_id where p.pat_id = ? and pr.prescribed = 0";
+  
+  /*connection.query(pharma_query, [pat_id], (err, rows, fields) => {
     if (err) throw err;
     console.log(rows.length);
     if (rows.length == 0) {
       console.log("This patient does not exist");
+      //res.render("pharma_home", { rows: 'invalid' });
     } else {
       console.log(rows);
       res.render("pharma_home", { rows: rows });
     }
-  });
+  }); */
 
   connection.query(presc_query, [pat_id], (err, rows, fields) => {
     if (err) throw err;
@@ -368,3 +414,4 @@ server.listen(port);
 //app.listen(port, ()=> {
 console.log(`the server is running on port ${port}`);
 //});
+

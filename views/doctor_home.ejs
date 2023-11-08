@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<style>
+   body{
+       background-color: rgb(17, 191, 191) ;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      height: 100vh;
+      margin: 10px;
+      margin-left: 70px;
+      background-color: #f0f0f0;
+   }
+   .doctor {
+            background-color: rgb(166, 190, 255);
+            padding: 20px;
+            margin: 10px;
+        }
+
+        .search-container {
+            background-color: rgb(248, 156, 156);
+            padding: 20px;
+            margin: 10px;
+            height: 650px;
+            width: 900px;
+        }
+</style>
+   <body> 
+      <div class="doctor">
+         <label for="doctorName">Doctor Name: <%= %></label><br>
+ 
+         <label for="experience">Experience (in years): <%= %></label><br>
+ 
+         <label for="specialization">Specialization: <%= %></label><br>
+ 
+         <label for="age">Age: <%= %></label><br>
+ 
+         <label for="email">Email: <%= %></label><br>
+        
+         <label for="ID">Patient ID: <%= %></label><br>
+
+         <button class="submit"> search <style>
+            .submit{
+               background-color: #0074d9; /* Background color */
+            color: #fff; /* Text color */
+            padding: 10px 20px; /* Padding inside the button */
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer;
+
+            }
+            .submit:hover{
+               background-color: #ff0000;
+            }
+            .submit:active{
+               background-color: #ff0000;
+            }
+         </style></button>
+           <div class="add-patient-button">
+            <button onclick="addPatient()">Add Patient</button>
+        </div>
+    
+        <script>
+            function addPatient() {
+                alert("Add Patient functionality to be implemented.");
+            }
+        </script>
+   </div>
+ 
+   </body>
+   <body>
+      <form>
+         <div class="search-container">
+            <body>
+               <h2>Patient List</h2>
+               
+               <table border="1">
+                   <tr>
+                       <th>ID</th>
+                       <th>Name</th>
+                       <th>Age</th>
+                       <th>Gender</th>
+                       <th>Phone</th>
+                   </tr>
+           
+                   <?php
+                   // Assuming you have a backend script that fetches patient data and returns it as an array
+                   $patients = getPatientData();
+           
+                   foreach ($patients as $patient) {
+                       echo "<tr>";
+                       echo "<td>{$patient['id']}</td>";
+                       echo "<td>{$patient['name']}</td>";
+                       echo "<td>{$patient['age']}</td>";
+                       echo "<td>{$patient['gender']}</td>";
+                       echo "<td>{$patient['phone']}</td>";
+                       echo "</tr>";
+                   }
+                   ?>
+           
+                </table>
+        </div>
+      </form>
+   </body>
+   
+</html>
