@@ -1,0 +1,36 @@
+body {
+    background-image: url('/images/example.jpg');
+    /* Replace 'your-image.jpg' with the path to your image */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+    color: black;
+    font-size: larger;
+
+}
+
+.submit-button {
+    background-color: #0074d9;
+    /* Background color */
+    color: #fff;
+    /* Text color */
+    padding: 10px 20px;
+    /* Padding inside the button */
+    border: none;
+    /* No border */
+    border-radius: 5px;
+    /* Rounded corners */
+    cursor: pointer;
+    /* Show pointer cursor on hover */
+}
+
+/* Hover effect for the button */
+.submit-button:hover {
+    background-color: #ff0000;
+    /* Change the background color on hover */
+}

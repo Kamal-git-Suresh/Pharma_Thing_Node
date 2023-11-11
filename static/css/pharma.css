@@ -1,0 +1,30 @@
+body {
+    background-image: url("/images/example.jpg"); /* Replace 'your-image.jpg' with the path to your image */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+  }
+  .search-container {
+    display: flex;
+  }
+
+  .search-input {
+    padding: 10px;
+    width: 20%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .search-button {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }

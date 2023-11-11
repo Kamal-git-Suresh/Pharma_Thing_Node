@@ -1,40 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Patient ID</title>
-    <style>
-      /* Style for the search box and button */
-      body {
-        background-image: url("U0rczZ.jpg"); /* Replace 'your-image.jpg' with the path to your image */
-        background-size: cover;
-        background-position: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        background-color: #f0f0f0;
-      }
-      .search-container {
-        display: flex;
-      }
-
-      .search-input {
-        padding: 10px;
-        width: 20%;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-      }
-
-      .search-button {
-        padding: 10px 20px;
-        background-color: #3498db;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-    </style>
+    <script src="./js/pharma_page.js"></script>
+    <title>Pharmacist</title>
+    <link rel="stylesheet" href="./css/pharma.css">
   </head>
   <body>
     <h2>Patient ID</h2>
@@ -74,7 +43,7 @@
                     <td><%= row.presc_name %></td>
                     <td><%= row.presc_date %></td>
                     <td><%= row.amount %></td>
-                    <td><button values = <%= row.presc_id %> ></button></td>
+                    <td><button type="button" onclick="sendHello(<%=row.pat_id%>, <%=row.presc_id%>)" id = "<%=row.presc_id %>" >Prescribe</button></td>
                 </tr><br>
                 <% }); %>
             </tbody>

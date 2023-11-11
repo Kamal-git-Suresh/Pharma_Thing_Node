@@ -1,106 +1,113 @@
 <!DOCTYPE html>
 <html>
-<style>
-   body{
-       background-color: rgb(17, 191, 191) ;
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      height: 100vh;
-      margin: 10px;
-      margin-left: 70px;
-      background-color: #f0f0f0;
-   }
-   .doctor {
-            background-color: rgb(166, 190, 255);
-            padding: 20px;
-            margin: 10px;
-        }
-
-        .search-container {
-            background-color: rgb(248, 156, 156);
-            padding: 20px;
-            margin: 10px;
-            height: 650px;
-            width: 900px;
-        }
-</style>
-   <body> 
+<head>
+   <script src="./js/doctor.js"></script>
+   <link rel="stylesheet" href="./css/doctor.css">
+   <title>Doctor</title>
+</head>
+<body>
+   <div class="container">
       <div class="doctor">
-         <label for="doctorName">Doctor Name: <%= %></label><br>
- 
-         <label for="experience">Experience (in years): <%= %></label><br>
- 
-         <label for="specialization">Specialization: <%= %></label><br>
- 
-         <label for="age">Age: <%= %></label><br>
- 
-         <label for="email">Email: <%= %></label><br>
+         <label class = "docinfo" for="doctorName">Doctor Name: <%=rows[0].doc_name %></label><br><br>
+   
+         <label class = "docinfo"  for="experience">Experience (in years): <%= rows[0].doc_exp%></label><br><br>
+   
+         <label class = "docinfo"  for="specialization">Specialization: <%= rows[0].doc_spec%></label><br><br>
+   
+         <label class = "docinfo"  for="age">Age: <%= rows[0].age%></label><br><br>
+   
+         <label class = "docinfo"  for="email">Email: <%= rows[0].doc_email%></label><br><br>   
         
-         <label for="ID">Patient ID: <%= %></label><br>
-
-         <button class="submit"> search <style>
-            .submit{
-               background-color: #0074d9; /* Background color */
-            color: #fff; /* Text color */
-            padding: 10px 20px; /* Padding inside the button */
-            border: none; /* No border */
-            border-radius: 5px; /* Rounded corners */
-            cursor: pointer;
-
-            }
-            .submit:hover{
-               background-color: #ff0000;
-            }
-            .submit:active{
-               background-color: #ff0000;
-            }
-         </style></button>
+         
            <div class="add-patient-button">
-            <button onclick="addPatient()">Add Patient</button>
+            <button class= "btn" onclick="addPatient()">Add Patient</button>
+        </div>
+           <div class="add-patient-button">
+            <button class= "btn"  onclick="addPresc()">Prescribe</button>
         </div>
     
-        <script>
-            function addPatient() {
-                alert("Add Patient functionality to be implemented.");
-            }
-        </script>
-   </div>
- 
-   </body>
-   <body>
+      </div>
+   
       <form>
          <div class="search-container">
             <body>
-               <h2>Patient List</h2>
-               
-               <table border="1">
-                   <tr>
-                       <th>ID</th>
-                       <th>Name</th>
-                       <th>Age</th>
-                       <th>Gender</th>
-                       <th>Phone</th>
-                   </tr>
-           
-                   <?php
-                   // Assuming you have a backend script that fetches patient data and returns it as an array
-                   $patients = getPatientData();
-           
-                   foreach ($patients as $patient) {
-                       echo "<tr>";
-                       echo "<td>{$patient['id']}</td>";
-                       echo "<td>{$patient['name']}</td>";
-                       echo "<td>{$patient['age']}</td>";
-                       echo "<td>{$patient['gender']}</td>";
-                       echo "<td>{$patient['phone']}</td>";
-                       echo "</tr>";
-                   }
-                   ?>
-           
-                </table>
+               <h2>Patient List</h2>          
+               <section class="table_body">
+                  <main class="table">
+                     <table border="1">
+                         <tr>
+                             <th>ID</th>
+                             <th>Name</th>
+                             <th>Age</th>
+                             <th>Gender</th>
+                         </tr>
+                         <tbody>
+                           <% rows.forEach(function(row) { %>
+                              <tr>
+                                  <td><%= row.pat_id %></td>
+                                  <td><%= row.pat_name %></td>
+                                  <td><%= row.pat_age %></td>
+                                  <td><%= row.pat_sex %></td>
+                              </tr><br>
+                              <% }); %>
+                         </tbody>
+                      </table>
+                     </main>
+               </section>
         </div>
       </form>
+   </div> 
+
+   <div class = "overlay" id = "add_pat_overlay">
+      <div class = "patient_add" id = "patient_add" >
+         <form action="/insert_pat_by_doc" id = "patient_form" method="post">
+            <label for="Id">Id:</label>
+            <input type="number" id="id" name="pat_id" required><br><br>
+            <label for="name">Name: </label>
+            <input type="text" id="name" name="pat_name"><br><br>
+            <label for="Age">Age:</label>
+            <input type="number" id="age" name="pat_age"><br><br>
+            <label for="Sex">Sex:</label>
+            <input type="text" id="sex" name="pat_sex"><br><br>
+            <button class="submit" type="submit">Submit</button>
+            <button type = "reset" onclick="closePatWindow()">Cancel</button>
+         </form>
+      </div>
+   </div>
+
+   <div class = "overlay" id = "add_presc_overlay">
+      <div class = "patient_add" id = "presc_add" >
+         <h3>Prescribe medicines</h3>
+         
+         <form action="/prescribe" id = "presc_form" method="post">
+            <label for="presc_list">Prescription Id:</label>
+            <select name="presc_list" id ="presc_list"> 
+               <% meds.forEach(function(med){%>
+               <option><%=med.presc_id%></option>
+               <% }); %>
+            </select>   
+               <br><br>
+            
+            <label for="id_list">Patient Id:</label>
+            <select name="id_list" id ="id_list"> 
+               <% pats.forEach(function(pat) {%>
+               <option><%=pat.pat_id%></option>
+               <% }); %>
+            </select>   
+            <br><br>
+            <label for="prec_doc_id">Doctor ID:</label>
+            <input type="number" id="presc_doc_id" name="presc_doc_id" value = "<%=rows[0].doc_id%>"required><br><br>
+            
+            <label for="amount">Dosage: </label>
+            <input type="number" id="amount" name="amount" required><br><br>
+
+            <label for="pat_presc_date">Prescription Date: </label>
+            <input type="text" id="pat_presc_date" name="pat_presc_date" required><br><br>
+            
+            <button class="submit" type="submit">Submit</button>
+            <button type = "reset" onclick="closePrescWindow()">Cancel</button>
+         </form>
+      </div>
+   </div>
    </body>
-   
 </html>
