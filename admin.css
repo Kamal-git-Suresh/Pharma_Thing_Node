@@ -1,0 +1,126 @@
+*{
+   margin: 0;
+   padding: 0;
+   font-family: sans-serif;
+}
+body{
+      background-image: url('U0rczZ.jpg'); /* Replace 'your-image.jpg' with the path to your image */
+       background-size: cover;
+       background-position: center;
+      display: flex;
+      height: 100vh;
+      margin: 0;
+      border: #0074d9;
+      border-top: 10px;
+      border-radius: 50px;
+      overflow: hidden;
+
+      
+
+   }
+.detailslabel{
+   
+   padding: 70px;
+   margin-bottom: 300px ;
+   margin:-59px;
+   color: #31008b;
+   justify-content: space-between;
+   
+}
+.field{
+   border: 1px solid #dadada;
+   border-radius: 7px;
+   outline:invert;
+   border-color: #00085e;
+   box-shadow: 10 10 10px #ef0000;
+   background-color: #fff8;
+   box-shadow: 0 0 10px #2142e8;
+   background-image: linear-gradient(rgba(226, 224, 255, 0.75),rgba(255, 255, 255, 0.75));
+   height: 25px;
+   width: 171px;
+   margin-left: 0px;
+   margin-right: 0px;
+}
+.label{
+   margin-left: 43px;
+}
+.field:hover{
+   border-color: #0210a5;
+
+}
+.field:active{
+   border-color: rgb(0, 89, 255);
+}
+.submit-button {
+   width: 200px;
+   padding: 15px 0;
+   text-align: center;
+   margin: 15px 83px;
+   border-radius: 25px;
+   font-weight: bold;
+   border: 2px solid rgb(72, 108, 127);
+   background: transparent;
+   color:rgb(171, 171, 224);
+   cursor: pointer;
+   position: relative;
+   overflow: hidden;
+   
+    
+    /* Show pointer cursor on hover */
+        }
+
+        /* Hover effect for the button */
+.submit-button:hover {
+            background-color: rgb(7, 0, 74); /* Change the background color on hover */
+        }
+.radio{
+            display: flexbox;
+            color: #4001b3;
+            margin-top: 70px;
+            margin-left: 13%;
+            margin-bottom: 10px;
+         }
+.admin{
+   display: flexbox;
+   margin: 50px;
+   margin-left: 50px;
+   margin-right: 300px;
+   margin-top:30px;
+   size: larger;
+   
+   
+}  
+.container{
+   border: 2px solid #dadada;
+    border-radius: 7px;
+    outline: none;
+    border-color: #376286;
+    box-shadow: 10 10 10px #ef0000;
+
+   background-color: #fff8;
+   backdrop-filter: blur(2px);
+   backdrop-filter: drop-shadow(4px 4px 10px blue );
+   
+   backface-visibility: visible;
+   border: 2px;
+   border-bottom: black;
+   height: 550px;
+   margin-top: 30%;
+   margin-bottom: 50px;
+   margin:69px;
+   width:371px;
+   border-radius: 100px;
+   box-shadow: #151212;
+   border-color: #8000ff;
+   border: 1px solid #ccc;
+   box-shadow: 10px 10px 10px #2142e8;
+}
+.container1{
+   background-color:#fff7;
+   padding: 42px;
+   height: 38px;
+   width: 318px;
+   margin:25px;
+
+
+}
