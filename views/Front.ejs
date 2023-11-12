@@ -13,21 +13,19 @@
           var selectedValue = document.querySelector(
             'input[name="role"]:checked'
           ).value;
-          if (selectedValue === "Pharmacist") {
+          console.log(selectedValue);
+          if (selectedValue === "Pharmasist") {
             document.getElementById("loginForm").action = "/pharma_login";
           } else if (selectedValue === "Doctor") {
             document.getElementById("loginForm").action = "/doctor_login";
           } else if (selectedValue === "Administrator") {
             document.getElementById("loginForm").action = "/admin_login";
           }
-          else{
-            document.getElementById("loginForm").action = "/pharma_login";
-          }
         }
       </script>
       <div class="form_box" name = "formbox">
         <div class="form-value">
-          <form method="POST" id="loginForm" onsubmit="handleSubmit()">
+          <form method="get" id="loginForm" onsubmit="handleSubmit()">
             <h2>Login</h2>
             <label class="radio-container"
               >Doctor
@@ -42,7 +40,7 @@
             </label>
             <label class="radio-container"
               >Administrator
-              <input type="radio" name="role" value="Pharmasist" />
+              <input type="radio" name="role" value="Administrator" />
               <span class="radio-checkmark"></span>
             </label>
             <div></div>

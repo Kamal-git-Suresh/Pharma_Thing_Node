@@ -3,52 +3,52 @@
   <head>
     <script src="./js/pharma_page.js"></script>
     <title>Pharmacist</title>
-    <link rel="stylesheet" href="./css/pharma.css">
+    <link rel="stylesheet" href="./css/pharma.css" />
   </head>
   <body>
-    <h2>Patient ID</h2>
-    <div class="search-container">
-      <form action="/search_pat" method="post">
+    <div class="container">
+      <form
+        id="searchbar"
+        class="searchbar"
+      >
         <input
-          type="text"
-          class="search-input"
+          type="username"
+          placeholder="patient id"
           name="pat_id"
-          placeholder="ID"
+          id="pat_id"
         />
-        <button class="search-button" type="submit">Search</button>
+        <button class="search_button" type="button" onclick="handleSubmit()" onsubmit="handleSubmit()">
+          <img src="./images/search.png" />
+        </button>
       </form>
-    <br>
-    </div>
-    <% if (rows != undefined) { %>
-        <div>
-            <h3><%=rows[0].pat_name%></h3>
-            <label> Id: <%= rows[0].pat_id%></label><br>
-            <label> Date of Birth: <%= rows[0].pat_date %></label><br>
-            <label> Sex: <%= rows[0].pat_sex%></label><br>
-            <br><br>
+      <br /><br />
+      <div id="table_container" class="table-container">
+        <h3></h3>
+      </div>
+      <main>
+        <section class="table_body" id="table_body">
+          <table id="pat_table" style="display: none">
+            <label id="pat_name_label"> </label><br />
+            <label id="pat_age_label"> </label><br />
+            <label id="pat_sex_label"> </label><br />
             <thead>
-                <tr>
-                   <th>Doctor Id</th>
-                   <th>Prescription Id</th>
-                   <th>Prescription Name</th>
-                   <th>Prescription Date</th>
-                   <th>Amount</th>
-                </tr><br>
+              <tr>
+                <th>Doctor Id</th>
+                <th>Prescription Id</th>
+                <th>Prescription Name</th>
+                <th>Prescription Date</th>
+                <th>Amount</th>
+                <th>Prescribed</th>
+              </tr>
+              <br />
             </thead>
-            <tbody>
-                <% rows.forEach(function(row) { %>
-                <tr>
-                    <td><%= row.doc_id %></td>
-                    <td><%= row.presc_id %></td>
-                    <td><%= row.presc_name %></td>
-                    <td><%= row.presc_date %></td>
-                    <td><%= row.amount %></td>
-                    <td><button type="button" onclick="sendHello(<%=row.pat_id%>, <%=row.presc_id%>)" id = "<%=row.presc_id %>" >Prescribe</button></td>
-                </tr><br>
-                <% }); %>
-            </tbody>
-         </table>
-        </div>
-    <% } %>
+            <tbody></tbody>
+          </table>
+        </section>
+      </main>
+    </div>
+    <div class="error-window" id="error-container">
+      <p>Patient Not found/Patient has no active prescriptions</p>
+    </div>
   </body>
 </html>

@@ -1,30 +1,220 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+
 body {
-    background-image: url("/images/example.jpg"); /* Replace 'your-image.jpg' with the path to your image */
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f0f0f0;
-  }
-  .search-container {
-    display: flex;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0;
+}
+
+h1{
+  margin-top: -20vh;
+  margin-bottom: 20vh;
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-family: 'poppins', sans-serif;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding: 5%;
+  background-image: linear-gradient(rgba(114, 124, 179, 0.9), rgba(29, 39, 90, 0.9)), url(/U0rczZ.jpg);
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column; /* Updated line */
+  align-items: center;
+  justify-content: center;
+}
+
+
+.searchbar {
+  width: 100%;
+  max-width: 700px;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  border-radius: 60px;
+  padding: 10px 20px;
+  backdrop-filter: blur(4px) saturate(180%);
+}
+
+.searchbar input {
+  background: transparent;
+  flex: 1;
+  border: 0;
+  outline: none;
+  padding: 24px 20px;
+  font-size: 20px;
+  color: white;
+}
+
+::placeholder {
+  color: white;
+}
+
+.searchbar button img {
+  width: 25px;
+}
+
+.searchbar button {
+  border: 0;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  background: #58629b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 5px #58629b, 0 0 25px #58629b;
+}
+
+button:active {
+  transform: scale(0.96);
+}
+
+button:hover {
+  box-shadow: 0 0 5px #58629b, 0 0 25px #58629b, 0 0 50px #58629b, 0 0 100px #58629b, 0 0 200px #58629b;
+}
+
+.animate_up {
+  animation: move_up 1s ease;
+}
+
+@keyframes move_up {
+  0% {
+    transform: translateY(0);
   }
 
-  .search-input {
-    padding: 10px;
-    width: 20%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  20% {
+    transform: translateY(10dp);
   }
 
-  .search-button {
-    padding: 10px 20px;
-    background-color: #3498db;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  80% {
+    transform: translateY(70dp);
   }
+
+  100% {
+    transform: translateY(100dp);
+  }
+}
+
+.table-container {
+  visibility: hidden;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  visibility: hidden;
+}
+
+.error-window {
+
+  position: fixed;
+  margin-bottom: -80vh;
+  width: 500px;
+  height: 50px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  align-items: center;
+  /* justify-content: center; */
+  text-align: center;
+  /* padding: 100px; */
+  /* padding-bottom: 10px; */
+  z-index: 999;
+  visibility: hidden;
+}
+
+main.table {
+  padding-left: 12px;
+  margin-top: 20px;
+  background-color: #fff5;
+  backdrop-filter: blur(7px);
+  box-shadow: 0 .4rem .9rem #000500;
+  border-radius: .8rem;
+  
+}
+
+table,
+th,
+td {
+  width: 50vh;
+
+  border-collapse: collapse;
+  padding: 1rem;
+  text-align: left;
+}
+
+.table_header {
+  width: 100%;
+  max-height: 10%;
+  background-color: #fff4;
+  padding: .8rem 1rem;
+
+}
+
+.table_body {
+  margin-top: 20px; /* Adjust as needed */
+  width: 95%;
+  padding: 5px;
+  background-color: #fffb;
+  margin: .8rem auto;
+  border-radius: .6rem;
+  overflow: auto;
+  visibility: hidden;
+}
+
+
+.table_body::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+
+}
+
+.table_body::-webkit-scrollbar-thumb {
+  border-radius: .5rem;
+  background-color: #0004;
+  visibility: hidden;
+}
+
+.table_body:hover::-webkit-scrollbar-thumb {
+  visibility: visible;
+}
+
+table {
+  width: 100%;
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+  left: 0;
+  background-color: #f3b866b0;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #fff6;
+}

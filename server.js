@@ -60,10 +60,10 @@ passport.use(
     authPharma(username, password).then((result) => {
       //actualUsername = result[0].username;
       //actualPassword = result[0].password;
-      //console.log("username:" + username);
-      //console.log("password:" + password);
+      console.log("username:" + username);
+      console.log("password:" + password);
       if (result == 0) {
-        console.log("Failed");
+        console.log("Pharma Failed");
         console.log("username: " + username);
         console.log('password" ' + password);
         return done(null, false, { message: "Invalid credentials" });
@@ -82,7 +82,7 @@ passport.use(
       //actualUsername = result[0].doc_id;
       //actualPassword = result[0].password;
       if (result == 0) {
-        console.log("Failed");
+        console.log("Doctor Failed");
         console.log("username: " + username);
         console.log('password" ' + password);
         return done(null, false, { message: "Invalid credentials" });
@@ -99,7 +99,7 @@ passport.use(
     var actualUsername, actualPassword;
     authAdmin(username, password).then((result) => {
       if (result == 0) {
-        console.log("Failed");
+        console.log("Admin Failed");
         console.log("username: " + username);
         console.log('password" ' + password);
         return done(null, false, { message: "Invalid credentials" });
@@ -204,7 +204,7 @@ function ensureAuthentication(requiredRole) {
     if (req.isAuthenticated() && req.user.role == requiredRole) {
       return next();
     } else {
-      console.log("ensureAuthentication Failed");
+      console.log(requiredRole + " ensureAuthentication Failed");
       res.redirect("/login_page");
     }
   };
@@ -213,11 +213,13 @@ function ensureAuthentication(requiredRole) {
 function authPharma(username, password, auth_type) {
   var auth;
   var query = `select * from pharma_auth where username=? and password=?`;
+  
   return new Promise((resolve, reject) => {
     connection.query(query, [username, password], (err, rows, fields) => {
       if (err) throw err;
       //console.log(fields)
       if (rows.length > 0) {
+        console.log('yes');
         resolve(rows);
       } else {
         console.log("no");
@@ -303,13 +305,17 @@ app.get("/login_page", (req, res) => {
   //res.sendFile(path.join(__dirname + '\\front.html'));
 });
 
+app.post("/login_page", (req, res) => {
+  //req.logout();
+  res.render("Front");
+  //res.sendFile(path.join(__dirname + '\\front.html'));
+});
+
 app.get("/admin", ensureAuthentication("admin"), (req, res) => {
   res.render("admin_home", { rows: undefined });
 });
 
-app.post("/admin", ensureAuthentication("admin"), (req, res) => {
-  res.render("admin_home", { rows: undefined });
-});
+
 
 app.get("/doctor", ensureAuthentication("doctor"), (req, res) => {
   var doc_id = req.user.username;
@@ -442,29 +448,29 @@ app.post("/login", (req, res) => {
   res.send("tf");
 });
 
-app.post(
+app.get(
   "/pharma_login",
   passport.authenticate("pharmasist", {
     successRedirect: "/pharma",
-    failureRedirect: "/",
+    failureRedirect: "/login_page",
     failureFlash: true,
   })
 );
 
-app.post(
+app.get(
   "/doctor_login",
   passport.authenticate("doctor", {
     successRedirect: "/doctor",
-    failureRedirect: "/",
+    failureRedirect: "/login_page",
     failureFlash: true,
   })
 );
 
-app.post(
+app.get(
   "/admin_login",
   passport.authenticate("admin", {
     successRedirect: "/admin",
-    failureRedirect: "/",
+    failureRedirect: "/login_page",
     failureFlash: true,
   })
 );
@@ -473,59 +479,29 @@ app.post("/", (req, res) => {
   res.render("front", { error: "" });
 });
 
-app.post("/auth", (req, res) => {
-  var username = req.body.username;
-  var password = req.body.password;
-  var choice = req.body.role;
-  console.log(choice);
-  const data = { message: username };
-  switch (choice) {
-    case "Doctor":
-      res.render("doc_home");
-      break;
-    case "Pharmacist":
-      var auth_type = "pharma_auth";
-      //console.log('auth func out: ' + String(auth))
-      var query = `select * from pharma_auth where username=? and password=?`;
-      connection.query(query, [username, password], (err, rows, fields) => {
-        if (err) throw err;
-        console.log(rows.length);
-        if (rows.length > 0) {
-          res.render("/pharma");
-        } else {
-          res.redirect("/login_page");
-        }
-      });
-      /*console.log(authPharma(username, password, "auth_pharma"));
-            if (authPharma(username, password, "auth_pharma") == true){
-                req.session.loggedin = true;
-                req.session.username = username;
-                res.redirect('/pharma')
-            }
-            else
-                res.send('Incorrect Username and/or Password!'); */
-      break;
-    case "Administrator":
-      res.render("admin_home");
-      break;
-  }
-});
+
 
 app.post("/search_pat", (req, res) => {
   var pat_id = req.body.pat_id;
+  console.log('pat id: ', pat_id);
   //var rows = searchPat(pat_id);
+  const pat_check_query = 'select * from patient where pat_id = ?';
   var pharma_query = "select pharma_name from pharmasist where pharma_id = ?";
   var presc_query =
     "select p.pat_id, p.pat_name, p.pat_sex, p.pat_age, pr.presc_id, m.presc_name, pr.presc_date, pr.prescribed, pr.amount from patient p join prescription pr on p.pat_id = pr.pat_id join meds m on pr.presc_id = m.presc_id where p.pat_id = ? and pr.prescribed = 0";
+  presc_query = 'select * from pharmasist_view where pat_id = ? and prescribed = 0';
+  
   connection.query(presc_query, [pat_id], (err, rows, fields) => {
     if (err) throw err;
     console.log(rows.length);
     if (rows.length == 0) {
       console.log("This patient does not exist");
-      res.status(500);
+      res.status(404).json({ error: 'patient not found' });
     } else {
       console.log(rows);
-      res.render("pharma_home", { rows: rows });
+      res.json(rows);
+      //res.status(200).send({rows : rows});
+      //res.render("pharma_home", { rows: rows });
     }
   });
 });
