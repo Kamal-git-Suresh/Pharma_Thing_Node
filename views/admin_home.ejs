@@ -7,7 +7,8 @@
   </head>
 
   <body>
-    <form method="post" id="insertionForm">
+    <div id="admin-heading">Admin</div>
+    <form id="insertionForm">
       <div class="radio">
         <input type="radio" name="role" id="doctorRadio" value="Doctor" />
         <label for="doctorRadio">Doctor</label><br />
@@ -69,7 +70,10 @@
         placeholder="For doctor only"
       /><br /><br />
 
-      <button class="submit-button" type="submit">SUBMIT</button>
+      <button class="submit-button" type="button" onclick="handleSubmit()">SUBMIT</button>
     </form>
+    <div class="error-window" id="success-container">
+      <p id = 'success'></p>
+    </div>
   </body>
 </html>

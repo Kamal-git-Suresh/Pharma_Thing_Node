@@ -6,42 +6,29 @@
    <title>Doctor</title>
 </head>
 <body>
-   <div class="container">
-      <div class="doctor">
-         <label class = "docinfo" for="doctorName">Doctor Name: <%=rows[0].doc_name %></label><br><br>
-   
-         <label class = "docinfo"  for="experience">Experience (in years): <%= rows[0].doc_exp%></label><br><br>
-   
-         <label class = "docinfo"  for="specialization">Specialization: <%= rows[0].doc_spec%></label><br><br>
-   
-         <label class = "docinfo"  for="age">Age: <%= rows[0].age%></label><br><br>
-   
-         <label class = "docinfo"  for="email">Email: <%= rows[0].doc_email%></label><br><br>   
-        
-         
-           <div class="add-patient-button">
-            <button class= "btn" onclick="addPatient()">Add Patient</button>
-        </div>
-           <div class="add-patient-button">
-            <button class= "btn"  onclick="addPresc()">Prescribe</button>
-        </div>
-    
-      </div>
-   
-      <form>
-         <div class="search-container">
-            <body>
-               <h2>Patient List</h2>          
-               <section class="table_body">
-                  <main class="table">
-                     <table border="1">
-                         <tr>
-                             <th>ID</th>
-                             <th>Name</th>
-                             <th>Age</th>
-                             <th>Gender</th>
-                         </tr>
-                         <tbody>
+    <div id="doctor-info">
+        <h1>Doctor</h1>
+        <p>Name: Dr. John Doe</p>
+        <p>ID: D12345</p>
+        <p>Age: 35</p>
+        <p>Specialization: General Medicine</p>
+    </div>
+
+    <div id="search-container">
+        <input type="text" id="search-box" placeholder="Enter patient name">
+        <button onclick="searchPatient()" id="search-button">Search</button>
+    </div>
+
+    <table id="patient-table">
+        <thead>
+            <tr>
+                <th>Patient ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Sex</th>
+            </tr>
+        </thead>
+        <tbody>
                            <% rows.forEach(function(row) { %>
                               <tr>
                                   <td><%= row.pat_id %></td>
