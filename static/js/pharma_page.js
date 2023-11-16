@@ -84,7 +84,7 @@ function handleSubmit() {
             <td>${item.presc_name}</td>
             <td>${item.presc_date}</td>
             <td>${item.amount}</td>
-            <td><button type="button" onclick="sendHello(${item.pat_id}, ${item.presc_id})" id = "${item.presc_id}" >Prescribe</button></td>
+            <td><button type="button" class = "button-33" onclick="sendHello(${item.pat_id}, ${item.presc_id})" id = "${item.presc_id}" >Prescribe</button></td>
         `;
         tbody.appendChild(row);
       });
