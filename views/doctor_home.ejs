@@ -8,16 +8,17 @@
 <body>
     <div id="doctor-info">
       <%var row = rows[0]%>
-        <h1><%=row.doc_name%></h1>
+        <h1>Doctor</h1>
+        <p>Name: <%=row.doc_name%></p>
         <p>ID: <%=row.doc_id%></p>
         <p>Age: <%=row.doc_age%></p>
         <p>Specialization: <%=row.doc_spec%></p>
     </div>
 
     <div id="search-container">
-        <input type="text" id="search-box" placeholder="Enter patient id">
-        <button onclick="addPatient()" id="search-button">Search</button><br><br>
-        <button onclick="addPresc()" id="search-button">Prescribe</button>
+        
+        <button onclick="addPatient()" id="search-button1">+ add patient</button><br><br>
+        <button onclick="addPresc()" id="search-button1">Prescribe</button>
     </div>
 
     <table id="patient-table">

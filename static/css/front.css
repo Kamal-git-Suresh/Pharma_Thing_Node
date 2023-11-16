@@ -147,7 +147,7 @@ h2 {
   top: 50%;
   left: 5px;
   transform: translateY(-50%);
-  color: black;
+  color: white;
   font: 1em sans-serif;
   pointer-events: none;
   transition: 0.4s;
@@ -155,7 +155,7 @@ h2 {
 
 input:focus~label,
 input:valid~label {
-  top: -5px;
+  top: -8px;
 }
 
 .inputbox input {
