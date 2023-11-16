@@ -307,12 +307,13 @@ app.post("/login_page", (req, res) => {
 });
 
 app.get("/admin", ensureAuthentication("admin"), (req, res) => {
-  res.render("admin_home", { rows: undefined });
+  res.render("admin_home", { admin_id: req.user.username });
 });
 
 app.get("/doctor", ensureAuthentication("doctor"), (req, res) => {
   var doc_id = req.user.username;
   docPageInfoQuery(doc_id).then((result) => {
+    console.log(result);
     searchPat(doc_id).then((patResult) => {
       searchMed(doc_id).then((medResult) => {
         console.log("patResult " + medResult);

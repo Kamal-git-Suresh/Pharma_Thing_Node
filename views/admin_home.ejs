@@ -5,75 +5,133 @@
     <script src="./js/admin.js"></script>
     <link rel="stylesheet" href="./css/admin.css" />
   </head>
-
   <body>
-    <div id="admin-heading">Admin</div>
-    <form id="insertionForm">
-      <div class="radio">
-        <input type="radio" name="role" id="doctorRadio" value="Doctor" />
-        <label for="doctorRadio">Doctor</label><br />
+    <div id="doctor-info">
+      <div id="admin-heading">Admin</div>
+      <div id="admin-id">Admin Name: <%=admin_id%></div>
+    </div>
 
-        <input
-          type="radio"
-          name="role"
-          id="pharmacistRadio"
-          value="Pharmacist"
-        />
-        <label for="pharmacistRadio">Pharmacist</label><br />
+    <table id="patient-table" style="visibility: hidden">
+      <thead>
+        <tr>
+          <th>Patient ID</th>
+          <th>Name</th>
+          <th>Age</th>
+          <!-- Add more columns as needed -->
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Populate with patient data -->
+      </tbody>
+    </table>
+
+    <table id="doctor-table" style="display: none">
+      <thead>
+        <tr>
+          <th>Doctor ID</th>
+          <th>Name</th>
+          <th>Specialization</th>
+          <!-- Add more columns as needed -->
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Populate with doctor data -->
+      </tbody>
+    </table>
+
+    <table id="pharmacist-table" style="display: none">
+      <thead>
+        <tr>
+          <th>Pharmacist ID</th>
+          <th>Name</th>
+          <th>License Number</th>
+          <!-- Add more columns as needed -->
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Populate with pharmacist data -->
+      </tbody>
+    </table>
+  </body>
+  <form id="insertionForm">
+    <!-- Username Field -->
+    <div class="detailslabel">
+      <div class="radio">
+        <label class="radio-container"
+          >Doctor
+          <input type="radio" name="role" value="Doctor" id="doctorRadio" />
+          <span class="radio-checkmark"></span>
+        </label>
+        <label class="radio-container"
+          >Pharmacist
+          <input
+            type="radio"
+            name="role"
+            value="Pharmacist"
+            id="pharmacistRadio"
+          />
+          <span class="radio-checkmark"></span>
+        </label>
       </div>
-      <!-- Username Field -->
-      <label for="Id">Id:</label>
-      <input type="number" id="id" name="id" required /><br /><br />
+      <input
+        type="number"
+        id="id"
+        placeholder="Id: "
+        name="id"
+        required
+      /><br />
 
       <!-- Password Field -->
-      <label for="password">Password:</label>
       <input
         type="password"
         id="password"
+        placeholder="Password:"
         name="password"
         required
-      /><br /><br />
+      /><br />
 
       <!-- User Details -->
-      <label for="name">Full Name: </label>
-      <input type="text" id="name" name="name" /><br /><br />
+      <input
+        type="text"
+        id="name"
+        placeholder="Full Name: "
+        name="name"
+      /><br />
 
-      <label for="email">Email:</label>
       <input
         type="email"
         id="email"
         name="email"
-        placeholder="For doctor only"
-      /><br /><br />
+        placeholder="Email: (For doctor only)"
+      /><br />
 
-      <label for="spec">Specialization:</label>
       <input
         type="text"
         id="spec"
         name="spec"
-        placeholder="For doctor only"
-      /><br /><br />
+        placeholder="Specialization: (For doctor only)"
+      /><br />
 
-      <label for="exp">Experiance:</label>
       <input
         type="text"
         id="exp"
         name="exp"
-        placeholder="For doctor only"
-      /><br /><br />
+        placeholder="Experiance: (For doctor only)"
+      /><br />
 
-      <label for="Age">Age:</label>
       <input
         type="number"
         id="age"
         name="age"
-        placeholder="For doctor only"
-      /><br /><br />
+        placeholder="Age: (For doctor only)"
+      /><br />
 
-      <button class="submit-button" type="button" onclick="handleSubmit()">SUBMIT</button>
-    </form>
-    <div class="error-window" id="success-container">
-      <p id = 'success'></p>
+      <button class="submit-button" type="button" onclick="handleSubmit()">
+        SUBMIT
+      </button>
     </div>
-  </body>
+  </form>
+  <div class="error-window" id="success-container">
+    <p id="success"></p>
+  </div>
 </html>

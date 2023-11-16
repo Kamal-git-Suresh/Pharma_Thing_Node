@@ -7,16 +7,17 @@
 </head>
 <body>
     <div id="doctor-info">
-        <h1>Doctor</h1>
-        <p>Name: Dr. John Doe</p>
-        <p>ID: D12345</p>
-        <p>Age: 35</p>
-        <p>Specialization: General Medicine</p>
+      <%var row = rows[0]%>
+        <h1><%=row.doc_name%></h1>
+        <p>ID: <%=row.doc_id%></p>
+        <p>Age: <%=row.doc_age%></p>
+        <p>Specialization: <%=row.doc_spec%></p>
     </div>
 
     <div id="search-container">
-        <input type="text" id="search-box" placeholder="Enter patient name">
-        <button onclick="searchPatient()" id="search-button">Search</button>
+        <input type="text" id="search-box" placeholder="Enter patient id">
+        <button onclick="addPatient()" id="search-button">Search</button><br><br>
+        <button onclick="addPresc()" id="search-button">Prescribe</button>
     </div>
 
     <table id="patient-table">
@@ -47,15 +48,12 @@
 
    <div class = "overlay" id = "add_pat_overlay">
       <div class = "patient_add" id = "patient_add" >
+         <h3>Add patient</h3><br>
          <form action="/insert_pat_by_doc" id = "patient_form" method="post">
-            <label for="Id">Id:</label>
-            <input type="number" id="id" name="pat_id" required><br><br>
-            <label for="name">Name: </label>
-            <input type="text" id="name" name="pat_name"><br><br>
-            <label for="Age">Age:</label>
-            <input type="number" id="age" name="pat_age"><br><br>
-            <label for="Sex">Sex:</label>
-            <input type="text" id="sex" name="pat_sex"><br><br>
+            <input type="number" id="id" name="pat_id" placeholder="Id:" required ><br><br>
+            <input type="text" id="name" placeholder="Name: " name="pat_name"><br><br>
+            <input type="number" id="age" placeholder="Age:" name="pat_age"><br><br>   
+            <input type="text" id="sex" placeholder="Sex:" name="pat_sex"><br><br>
             <button class="submit" type="submit">Submit</button>
             <button type = "reset" onclick="closePatWindow()">Cancel</button>
          </form>

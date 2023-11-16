@@ -1,17 +1,179 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
 body {
-    background-image: url('/images/example.jpg');
-    /* Replace 'your-image.jpg' with the path to your image */
-    background-size: cover;
+    font-family: Arial, sans-serif;
+}
+
+#admin-heading {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+#admin-id {
+    margin-bottom: 10px;
+}
+
+.button-container {
+    margin-bottom: 20px;
+}
+
+.button {
+    padding: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+#doctor-info {
+    background-color: #3498db;
+    background-image: url("/images/example.jpg ");
     background-position: center;
+    background-size: cover;
+    color: #fff;
+    padding: 20px;
+    text-align: left;
+}
+
+.inputform {
+    visibility: hidden;
+}
+
+.detailslabel {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f0f0f0;
-    color: black;
-    font-size: larger;
+    flex-direction: column;
+    padding: 20px;
+    margin-bottom: 300px;
+    margin: -59px;
+    color: #31008b;
+    justify-content: space-between;
 
+}
+
+.field {
+    border: 1px solid #dadada;
+    border-radius: 7px;
+    outline: invert;
+    border-color: #00085e;
+    box-shadow: 10 10 10px #ef0000;
+    background-color: #fff8;
+    box-shadow: 0 0 10px #2142e8;
+    background-image: linear-gradient(rgba(226, 224, 255, 0.75), rgba(255, 255, 255, 0.75));
+    height: 25px;
+    width: 171px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.label {
+    margin-left: 43px;
+}
+
+.field:hover {
+    border-color: #0210a5;
+
+}
+
+.field:active {
+    border-color: rgb(0, 89, 255);
+}
+
+.submit-button {
+    width: 200px;
+    padding: 15px 0;
+    text-align: center;
+    margin: 15px 83px;
+    border-radius: 25px;
+    font-weight: bold;
+    border: 2px solid rgb(72, 108, 127);
+    background: transparent;
+    color: rgb(171, 171, 224);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+
+
+    /* Show pointer cursor on hover */
+}
+
+/* Hover effect for the button */
+.submit-button:hover {
+    background-color: rgb(7, 0, 74);
+    /* Change the background color on hover */
+}
+
+.radio {
+    display: flexbox;
+    color: #4001b3;
+    margin-top: 70px;
+    margin-bottom: 10px;
+}
+
+.admin {
+    display: flexbox;
+    margin: 50px;
+    margin-left: 50px;
+    margin-right: 300px;
+    margin-top: 30px;
+    size: larger;
+
+
+}
+
+.container {
+    border: 2px solid #dadada;
+    border-radius: 7px;
+    outline: none;
+    border-color: #376286;
+    box-shadow: 10 10 10px #ef0000;
+
+    background-color: #fff8;
+    backdrop-filter: blur(2px);
+    backdrop-filter: drop-shadow(4px 4px 10px blue);
+
+    backface-visibility: visible;
+    border: 2px;
+    border-bottom: black;
+    height: 550px;
+    margin-top: 30%;
+    margin-bottom: 50px;
+    margin: 69px;
+    width: 371px;
+    border-radius: 100px;
+    box-shadow: #151212;
+    border-color: #8000ff;
+    border: 1px solid #ccc;
+    box-shadow: 10px 10px 10px #2142e8;
+}
+
+.container1 {
+    background-color: #fff7;
+    padding: 42px;
+    height: 38px;
+    width: 318px;
+    margin: 25px;
 }
 
 .submit-button {
@@ -31,6 +193,60 @@ body {
 
 /* Hover effect for the button */
 .submit-button:hover {
-    background-color: #ff0000;
+    background-color: #00b3ff;
     /* Change the background color on hover */
 }
+
+input {
+    /*width: 15%;
+    height: 50px; */
+    background: transparent;
+    /*border: none;
+    outline: none; */
+    font-size: 1em;
+    padding: 0 35px 0 5px;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 50px;
+    height: 30px;
+    border-color: #147BCD;
+    color: black;
+}
+
+input[type="radio"] {
+    display: none;
+  }
+  
+  .radio-container {
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+  }
+  
+  .radio-checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: rgb(255, 255, 255);
+    border: 2px solid #2f3dff;
+    border-radius: 50%;
+  }
+  
+  input[type="radio"]:checked+.radio-checkmark {
+    background-color: #19a1f0;
+    border: 2px solid #fff;
+    animation: fadeIn 0.4s;
+  }
+  
+  @keyframes fadeIn {
+    0% {
+      background-color: #fff;
+    }
+  
+    100% {
+      background-color: #19a1f0;
+    }
+  }

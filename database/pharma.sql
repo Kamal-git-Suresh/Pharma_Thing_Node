@@ -96,6 +96,8 @@ LOCK TABLES `doctor` WRITE;
 INSERT INTO `doctor` VALUES
 (1,'Kamal','Audiologist',30,NULL,NULL),
 (44,'adf','afjlksd',84,23,'ka@ma'),
+(55,'kk','kkj',12,23,'lklk@lk'),
+(76,'afdd','dafkfj',33,42,'adf@kd'),
 (77,'lalala','Organ trafficking',12,13,'la@la'),
 (981,'Lamal Suresh',':-)',23,50,'lamal@nomail.com'),
 (987,'Kamak','--',20,40,'kamak@kmail.com');
@@ -128,7 +130,9 @@ INSERT INTO `doctor_auth` VALUES
 ('123',987),
 ('123',1),
 ('aaa',44),
-('aaa',77);
+('aaa',77),
+('aaa',76),
+('aaa',55);
 /*!40000 ALTER TABLE `doctor_auth` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -208,7 +212,8 @@ LOCK TABLES `pharma_auth` WRITE;
 INSERT INTO `pharma_auth` VALUES
 ('kamal','123'),
 ('PH102','123'),
-('3','ww');
+('3','ww'),
+('55','aaa');
 /*!40000 ALTER TABLE `pharma_auth` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -234,7 +239,8 @@ LOCK TABLES `pharmasist` WRITE;
 INSERT INTO `pharmasist` VALUES
 ('kamal','123'),
 ('PH102','LAMAL'),
-('3','dfaf');
+('3','dfaf'),
+('55','kk');
 /*!40000 ALTER TABLE `pharmasist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -287,7 +293,7 @@ CREATE TABLE `prescription` (
 LOCK TABLES `prescription` WRITE;
 /*!40000 ALTER TABLE `prescription` DISABLE KEYS */;
 INSERT INTO `prescription` VALUES
-(22,1,12,'2023/12/12',12,0);
+(22,1,12,'2023/12/12',12,1);
 /*!40000 ALTER TABLE `prescription` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -318,4 +324,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-15  6:55:10
+-- Dump completed on 2023-11-16  6:36:07
